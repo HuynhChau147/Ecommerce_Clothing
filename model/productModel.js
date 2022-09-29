@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema({
     type: [String],
     required: [true, 'A product must have a material!'],
   },
-  size: {
+  sizes: {
     type: [String],
     required: [true, 'A product must have a size!'],
   },
@@ -31,9 +31,9 @@ const productSchema = new mongoose.Schema({
     default: 0,
   },
   numberReview: { type: Number, default: 0 },
-  collectionId: {
+  category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Collections',
+    ref: 'categories',
   },
   saleOff: {
     type: Number,
@@ -49,8 +49,12 @@ const productSchema = new mongoose.Schema({
     required: [true, 'A product must have a description'],
     trim: true,
   },
+  sold: {
+    type: Number,
+    default: 0,
+  },
 });
 
-const Product = mongoose.model('Products', productSchema);
+const Product = mongoose.model('products', productSchema);
 
 export default Product;
