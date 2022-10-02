@@ -9,10 +9,12 @@ import * as authService from '../services/authService.js';
 export const signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body);
 
-  authService.createSendToken(newUser, 201, res);
+  await authService.createSendToken(newUser, 201, res);
 });
 
 export const login = catchAsync(async (req, res, next) => {
+  console.log(req.body);
+
   const { email, password } = req.body;
 
   // 1) Check ì email and password exits
@@ -31,39 +33,72 @@ export const login = catchAsync(async (req, res, next) => {
   }
 
   // If everything ok, send token to client
-  authService.createSendToken(user, 200, res);
+  await authService.createSendToken(user, 200, res);
 });
 
-export const logout = (req, res) => {
-  res.cookie('jwt', 'loggedout', {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true,
-  });
+export const refresh = catchAsync(async (req, res, next) => {
+  const cookies = req.cookies;
 
-  req.status(200).json({ status: 'success' });
-};
+  console.log(cookies);
+  if (!cookies?.jwt) return next(new AppError('Unauthorized', 401));
+  const refreshToken = cookies.jwt;
 
-// function protect route handler
-export const protect = catchAsync(async (req, res, next) => {
-  let token;
-  // 1) Getting token and check of it's there
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
-    token = req.headers.authorization.split(' ')[1];
-  } else if (req.cookies.jwt) {
-    token = req.cookies.jwt;
-  }
-
-  if (!token)
-    return next(
-      new AppError('Your are not logged in! Please log in to get access', 401)
-    );
+  // 3) Check if user still exists
+  const currentUser = await User.findOne({ refreshToken });
+  if (!currentUser) return next(new AppError('Not found user', 404));
 
   // 2) Verification token
 
-  const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+  const decoded = await jwt.verify(
+    refreshToken,
+    process.env.REFRESH_TOKEN_SECRET
+  );
+  console.log(decoded);
+
+  // access
+  await authService.createSendToken(currentUser, 200, res);
+});
+
+export const logout = catchAsync(async (req, res) => {
+  // res.cookie('jwt', 'loggedout', {
+  //   expires: new Date(Date.now() + 10 * 1000),
+  //   httpOnly: true,
+  // });
+
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(204); //No content
+  const refreshToken = cookies.jwt;
+
+  // Check refreshToken in database
+  const currentUser = await User.findOne({ refreshToken });
+  if (!currentUser) {
+    res.clearCookie('jwt', { httpOnly: true });
+    return next(new AppError('Not loggin yet!!', 204));
+  }
+
+  // delete refreshToken in db
+  currentUser.refreshToken = '';
+  await currentUser.save({ validateBeforeSave: false });
+
+  // clear Cookies
+  res.clearCookie('jwt', { httpOnly: true });
+
+  // send status
+  res.status(200).json({ status: 'success' });
+});
+
+// function protect route handler
+export const protect = catchAsync(async (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  if (!authHeader) return res.sendStatus(401);
+
+  console.log(authHeader);
+
+  const token = authHeader.split(' ')[1];
+
+  // 2) Verification token
+
+  const decoded = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
   console.log(decoded);
 
   // 3) Check if user still exists
