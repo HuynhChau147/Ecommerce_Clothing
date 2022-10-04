@@ -16,7 +16,10 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       validate: [validator.isEmail, 'Please provide a valid email!'],
     },
-    photo: String,
+    photo: {
+      type: String,
+      default: 'default.jpg',
+    },
     address: String,
     phoneNumber: String,
     role: {
@@ -41,6 +44,10 @@ const userSchema = new mongoose.Schema(
         message: 'Passwords are not the same!',
       },
     },
+    refreshToken: {
+      type: String,
+      select: false,
+    },
     passwordChangeAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
@@ -55,6 +62,8 @@ const userSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+userSchema.index({ refreshToken: 1 });
 
 userSchema.virtual('orders', {
   ref: 'order',
