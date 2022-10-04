@@ -11,12 +11,13 @@
     align-items: center;
 
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    justify-items: center;
 
     @include responds(sm) {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    
+        grid-template-columns: repeat(5, 1fr);
+    }
+
     .image-container {
         // width: 23%;
         width: 12rem;
@@ -28,12 +29,13 @@
             height: 100%;
             object-fit: cover;
             border-radius: 3px;
-    }
+        }
 
-    @include responds(sm) {
-      display: none;
+        @include responds(sm) {
+            display: none;
         }
     }
+
     .name,
     .quantity,
     .price {
@@ -45,9 +47,9 @@
         font-size: 1.6rem;
         cursor: pointer;
 
-    @include responds(sm) {
-      font-size: 1.4rem;
-    }
+        @include responds(sm) {
+            font-size: 1.4rem;
+        }
     }
 
     .quantity {
@@ -55,15 +57,16 @@
 
         .arrow {
             cursor: pointer;
+            user-select: none;
         }
 
         .value {
             margin: 0 12px;
             font-size: 22px;
-            
-      // @include responds(sm) {
-      //   margin: 0 6px;
-      // }
+
+            // @include responds(sm) {
+            //   margin: 0 6px;
+            // }
         }
     }
 

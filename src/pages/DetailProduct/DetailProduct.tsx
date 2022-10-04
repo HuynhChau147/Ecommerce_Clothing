@@ -1,19 +1,24 @@
 import axios from 'axios';
 
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/hooks';
+import { CartModel } from '../../Model/cartModel';
 import { ProductModel } from '../../Model/productModel';
+import { addCart } from '../../store/cart/cartSlice';
 import './DetailProduct.scss';
 
 type OptionsCart = {
-    size: string;
-    color: string;
-    quantity: number;
-  };
-  
+  size: string;
+  color: string;
+  quantity: number;
+};
+
 const DetailProduct = () => {
-    const { productId } = useParams();
+  const { productId } = useParams();
+  const dispatch = useDispatch();
 
   const [product, setProduct] = useState<ProductModel>();
   const [optionsCart, setOptionsCart] = useState<OptionsCart>({
@@ -46,8 +51,27 @@ const DetailProduct = () => {
     }
   };
 
-    return (
-<>
+  const addToCartHandler = (product: ProductModel) => {
+    if (!optionsCart.size) return;
+
+    const cartProductPrice = Math.round(
+      product.price - (product.price * product.saleOff) / 100
+    );
+    const cartProduct: CartModel = {
+      ...optionsCart,
+      _id: productId || '',
+      name: (product && product.name) || '',
+      price: cartProductPrice,
+      imageCover: product.imageCover,
+      sizes: product.size,
+    };
+
+    console.log(cartProduct);
+    dispatch(addCart(cartProduct));
+  };
+
+  return (
+    <>
       {product && (
         <main className="product container">
           <div className="product__main">
@@ -100,21 +124,26 @@ const DetailProduct = () => {
                 <span>{optionsCart.quantity}</span>
                 <span onClick={increaseQuantityHandler}>+</span>
               </div>
-              <button className="btn product__btn">Add to cart</button>
+              <button
+                className="btn product__btn"
+                onClick={() => addToCartHandler(product)}
+              >
+                Add to cart
+              </button>
             </div>
-            </div>
-            <div className="product__description">
-                <h2>Description</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore rem
-                    harum esse soluta quas placeat consequuntur eius nihil ipsam, porro
-                    natus recusandae repellendus assumenda, consectetur quidem
-                    reprehenderit et, cum sapiente?
-                </p>
-            </div>
-            </main>
+          </div>
+          <div className="product__description">
+            <h2>Description</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+              rem harum esse soluta quas placeat consequuntur eius nihil ipsam,
+              porro natus recusandae repellendus assumenda, consectetur quidem
+              reprehenderit et, cum sapiente?
+            </p>
+          </div>
+        </main>
       )}
     </>
-    );
+  );
 };
 export default DetailProduct;
