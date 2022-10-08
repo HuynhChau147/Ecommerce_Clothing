@@ -36,6 +36,10 @@
         gap: 2rem;
         font-size: 2.2rem;
 
+        & h4 {
+            color: $color--grey-dark;
+        }
+
         @include responds(sm) {
             font-size: 2rem;
         }
@@ -43,6 +47,7 @@
 
     &__name {
         font-family: $font-family--frankLibre;
+        color: $color--grey-dark-3;
     }
 
     &__material {
@@ -58,9 +63,20 @@
     }
 
     &__price-origin {
-        text-decoration: line-through;
         color: $color--accent-red;
         font-size: 2.4rem;
+        position: relative;
+
+        &::after {
+            position: absolute;
+            content: '';
+            display: block;
+            width: 100%;
+            height: 1px;
+            top: 53%;
+            left: 0;
+            background-color: currentColor;
+        }
     }
 
     &__price-sale {
@@ -72,10 +88,10 @@
         padding: 0.4rem 0.8rem;
         font-size: 1.6rem;
         border-radius: 1.2rem;
-    
+
         box-shadow: 1rem 0.2rem 3rem rgba($color--accent-orange, 0.8);
-      }
-    
+    }
+
     &__size {
         cursor: default;
         display: flex;
@@ -127,6 +143,23 @@
             padding: 1rem 1.5rem;
             cursor: pointer;
             user-select: none;
+        }
+    }
+
+    &__btn {
+        padding: 2rem 5rem !important;
+        font-size: 2.4rem;
+        text-transform: uppercase;
+        font-weight: 300;
+        background-color: rgba($color--accent-orange, 0.8) !important;
+    }
+
+    &__description {
+        padding-top: 4rem;
+        max-width: 50%;
+
+        @include responds(md) {
+            max-width: 100%;
         }
     }
 }

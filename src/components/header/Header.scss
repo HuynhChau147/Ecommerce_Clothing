@@ -1,5 +1,6 @@
 @use '../../sass/variables' as *;
 @use '../../sass/mixins' as *;
+@use '../../sass/animations' as *;
 
 .header-container {
   display: flex;
@@ -104,6 +105,10 @@
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
+  }
+
+  .bump {
+    animation: bump 300ms ease-in-out;
   }
 }
 
