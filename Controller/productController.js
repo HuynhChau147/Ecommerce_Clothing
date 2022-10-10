@@ -1,9 +1,11 @@
 import multer from 'multer';
 import sharp from 'sharp';
+import crypto from 'crypto';
 
 import Product from '../model/productModel.js';
 import catchAsync from '../utils/catchAsync.js';
 import * as factory from './handlerFactory.js';
+import * as productServices from '../services/productServices.js';
 
 const multerStorage = multer.memoryStorage();
 
@@ -31,65 +33,74 @@ export const uploadProductImages = upload.fields([
 ]);
 
 export const resizeProductImages = async (req, res, next) => {
-  if (!req.files.imageCover || !req.files.images) return next();
+  if (!req.files?.imageCover && !req.files?.images) return next();
 
   // 1) Cover image
-  req.body.imageCover = `product-${req.params.id}-${Date.now()}-cover.jpeg`;
-  await sharp(req.files.imageCover[0].buffer)
-    .resize(2048, 2048)
-    .toFormat('jpeg')
-    .jpeg({ quality: 90 })
-    .toFile(`public/img/products/${req.body.imageCover}`);
+  if (req.files.imageCover) {
+    req.body.imageCover = `product-${
+      req.params.id ? req.params.id : crypto.randomBytes(16).toString('hex')
+    }-${Date.now()}-cover.jpeg`;
+    await sharp(req.files.imageCover[0].buffer)
+      .resize(2048, 2048)
+      .toFormat('jpeg')
+      .jpeg({ quality: 90 })
+      .toFile(`public/img/products/${req.body.imageCover}`);
+  }
 
   // 2) images
-  req.body.images = [];
-  await Promise.all(
-    req.files.images.map(async (file, i) => {
-      const filename = `product-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
+  if (req.files.images) {
+    if (!req.body.images) req.body.images = [];
+    await Promise.all(
+      req.files.images.map(async (file, i) => {
+        const filename = `product-${
+          req.params.id ? req.params.id : crypto.randomBytes(16).toString('hex')
+        }-${Date.now()}-${i + 1}.jpeg`;
 
-      await sharp(file.buffer)
-        .resize(2048, 2048)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(`public/img/products/${filename}`);
+        await sharp(file.buffer)
+          .resize(2048, 2048)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(`public/img/products/${filename}`);
 
-      req.body.images.push(filename);
-    })
-  );
+        req.body.images.push(filename);
+      })
+    );
+  }
 
   console.log(req.body);
   next();
 };
 
 export const aliasTopHop = catchAsync(async (req, res, next) => {
-  req.query.limit = '8';
-  req.query.sort = '-rating';
-
+  req.query.limit = '100';
+  req.query.sort = '-ratingsAverage';
   next();
 });
 
 export const aliasTopSale = catchAsync(async (req, res, next) => {
-  req.query.limit = '8';
+  req.query.limit = '100';
   req.query.sort = '-saleOff';
-
   next();
 });
 
 export const aliasNewArrival = catchAsync(async (req, res, next) => {
-  req.query.limit = '8';
+  req.query.limit = '100';
   req.query.sort = '-createAt';
-
   next();
 });
 
-export const aliasTopTrending = catchAsync((req, res, next) => {
-  req.query.limit = '8';
-  req.query.sort = '-numberReview';
-
+export const aliasTopTrending = catchAsync(async (req, res, next) => {
+  req.query.limit = '100';
+  req.query.sort = '-ratingsQuantity';
   next();
 });
 
-export const getAllProducts = factory.getAll(Product);
+// { $all: req.query.sizes.split(',') }
+
+export const getAllProducts = factory.getAll(
+  Product,
+  productServices.productFilter
+);
 
 export const getProduct = factory.getOne(Product, { path: 'reviews' });
 

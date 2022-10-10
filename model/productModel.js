@@ -20,12 +20,15 @@ const productSchema = new mongoose.Schema(
       required: [true, 'A product must have a price!'],
     },
     material: {
-      type: [String],
+      type: String,
       required: [true, 'A product must have a material!'],
     },
     sizes: {
       type: [String],
-      required: [true, 'A product must have a size!'],
+      validate: {
+        validator: s => Array.isArray(s) && s.length > 0,
+        message: 'Not an array or array empty',
+      },
     },
     ratingsAverage: {
       type: Number,
@@ -41,6 +44,7 @@ const productSchema = new mongoose.Schema(
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'categories',
+      required: [true, 'A product must have a category'],
     },
     saleOff: {
       type: Number,
@@ -71,7 +75,14 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-productSchema.index({ price: 1, ratingsAverage: -1, saleOff: -1, sold: -1 });
+productSchema.index({ createAt: -1 });
+
+productSchema.index({
+  price: 1,
+  ratingsAverage: -1,
+  saleOff: -1,
+  sold: -1,
+});
 
 productSchema.virtual('reviews', {
   ref: 'review',

@@ -60,16 +60,45 @@ export const getOne = (Model, popOptions) =>
     });
   });
 
-export const getAll = Model =>
+export const getAll = (
+  Model,
+  filterFn = function () {
+    return {};
+  }
+) =>
   catchAsync(async (req, res, next) => {
-    // To allow for nested GET reviews on tour (hack)
-    let filter = {};
-    if (req.params.productId) filter = { product: req.params.productId };
+    const filter = filterFn(req);
 
-    const features = new APIFeatures(Model.find(filter), req.query)
+    let totalPages = 1;
+    const limit = req.query.limit;
+
+    // get all doc before paginate
+    if (limit) {
+      const totalDoc = await new APIFeatures(
+        Model.find({
+          ...filter,
+        }),
+        req.query
+      )
+        .filter()
+        .sort()
+        .limitFields().query;
+
+      totalPages = Math.ceil(totalDoc.length / limit);
+    }
+
+    // filter with search keywords match with name
+    const features = new APIFeatures(
+      Model.find({
+        ...filter,
+      }),
+      req.query
+    )
       .filter()
       .sort()
+      .limitFields()
       .paginate();
+
     // const doc = await features.query.explain();
     const doc = await features.query;
 
@@ -77,6 +106,7 @@ export const getAll = Model =>
     res.status(200).json({
       status: 'success',
       results: doc.length,
+      totalPages,
       data: {
         data: doc,
       },
