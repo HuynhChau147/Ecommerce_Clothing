@@ -13,14 +13,9 @@
     background-color: transparent;
     transition: all 0.2s ease-in-out;
 
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 1rem 2rem rgba($color--black, 0.08);
-    }
+    &:hover {}
 
-    &:active {
-        transform: translateY(1px);
-    }
+    &:active {}
 
     &--primary {
         background-color: $color--primary;
@@ -36,6 +31,25 @@
 
     &--round {
         border-radius: 999px;
+    }
+
+    &--transparent {
+        background-color: transparent;
+
+        &:hover {
+            background-color: rgba($color--black, 0.08);
+        }
+    }
+
+    &--shadow {
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 1rem 2rem rgba($color--black, 0.08);
+        }
+
+        &:active {
+            transform: translateY(1px);
+        }
     }
 }
 
