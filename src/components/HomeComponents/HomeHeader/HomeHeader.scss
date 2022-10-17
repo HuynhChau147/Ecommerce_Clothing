@@ -32,7 +32,8 @@
     align-items: center;
     height: 100%;
   }
-  &__layout-r > div:first-child {
+
+  &__layout-r>div:first-child {
     width: 42rem;
     height: 54rem;
     border-radius: 4px;
@@ -54,22 +55,22 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(
-        to top right,
-        rgba($color--black, 0.3),
-        rgba($color--black, 0.2),
-        rgba($color--black, 0.1),
-        rgba($color--black, 0.05) 50%,
-        rgba($color--black, 0)
-      );
+      background-image: linear-gradient(to top right,
+          rgba($color--black, 0.3),
+          rgba($color--black, 0.2),
+          rgba($color--black, 0.1),
+          rgba($color--black, 0.05) 50%,
+          rgba($color--black, 0));
     }
   }
-  &__layout-r > div > img {
+
+  &__layout-r>div>img {
     object-fit: cover;
     width: 100%;
     height: 100%;
   }
 }
+
 // Home header layout
 .layout {
   &__title {
@@ -93,16 +94,12 @@
   &__btn {
     padding: 1.2rem 2rem !important;
     font-size: 2.2rem;
-    background-color: $color--brown !important;
-    color: $color--white;
     font-weight: 500;
-
-    box-shadow: 0 2rem 3rem rgba($color--primary-dark, 0.3);
   }
 }
 
 // dot texture
-.home__header > div {
+.home__header>div {
   &:nth-child(1) {
     top: 22%;
     left: 12%;
@@ -110,6 +107,7 @@
     height: 12rem;
     transform: rotate(190deg);
   }
+
   &:nth-child(2) {
     top: 22%;
     right: 12%;
@@ -122,6 +120,7 @@
       right: 16%;
     }
   }
+
   &:nth-child(3) {
     bottom: 15%;
     right: 38%;
