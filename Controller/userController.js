@@ -37,18 +37,6 @@ export const resizeUserPhoto = async (req, res, next) => {
   next();
 };
 
-export const getAllUsers = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-
-  res.status(200).json({
-    status: 'success',
-    results: users.length,
-    data: {
-      users,
-    },
-  });
-});
-
 export const getMe = (req, res, next) => {
   req.params.id = req.user.id;
 
@@ -65,7 +53,13 @@ export const updateMe = catchAsync(async (req, res, next) => {
     );
 
   // 2) Filtered out unwanted fields names that are not allow to update
-  const filteredBody = userService.filterObj(req.body, 'name', 'email');
+  const filteredBody = userService.filterObj(
+    req.body,
+    'name',
+    'email',
+    'address',
+    'phone'
+  );
   if (req.file) filteredBody.photo = req.file.filename;
 
   // 3) Update user document
@@ -100,6 +94,7 @@ export const createUser = (req, res) => {
 };
 
 export const getUser = factory.getOne(User, { path: 'orders' });
+export const getAllUsers = factory.getAll(User, userService.userFilter);
 
 // DO NOT update passwords with this!
 export const updateUser = factory.updateOne(User);

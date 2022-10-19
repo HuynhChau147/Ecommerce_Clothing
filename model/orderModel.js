@@ -25,14 +25,7 @@ const orderSchema = mongoose.Schema(
   {
     status: {
       type: String,
-      enum: [
-        'Receive order',
-        'Pending',
-        'Shipped',
-        'Cancelled',
-        'Declined',
-        'Refunded',
-      ],
+      enum: ['Receive order', 'Pending', 'Shipped', 'Cancelled', 'Return'],
       default: 'Receive order',
     },
     items: [
@@ -57,8 +50,7 @@ const orderSchema = mongoose.Schema(
     description: String,
     createAt: {
       type: Date,
-      default: Date.now(),
-      select: false,
+      default: new Date().getTime(),
     },
   },
   {
@@ -71,6 +63,8 @@ orderSchema.index({
   items: 1,
   user: 1,
 });
+
+orderSchema.index({ phone: 1 });
 
 orderSchema.pre(/^find/, function (next) {
   this.populate({

@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
       default: 'default.jpg',
     },
     address: String,
-    phoneNumber: String,
+    phone: String,
     role: {
       type: String,
       enum: ['user', 'admin'],
@@ -83,12 +83,12 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.pre(/^find/, function (next) {
-  // this point to the current query
+// userSchema.pre(/^find/, function (next) {
+//   // this point to the current query
 
-  this.find({ active: { $ne: false } });
-  next();
-});
+//   this.find({ active: { $ne: false } });
+//   next();
+// });
 
 userSchema.methods.correctPassword = async function (
   candidatePassword,
@@ -104,7 +104,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
       10
     );
 
-    console.log(changedTimestamp, JWTTimestamp);
+    // console.log(changedTimestamp, JWTTimestamp);
 
     return JWTTimestamp < changedTimestamp;
   }
@@ -129,7 +129,7 @@ userSchema.methods.createPasswordResetToken = function () {
     .update(resetToken)
     .digest('hex');
 
-  console.log({ resetToken }, this.passwordResetToken);
+  // console.log({ resetToken }, this.passwordResetToken);
 
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
