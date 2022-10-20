@@ -26,7 +26,7 @@ function* signup({ payload }: IAction<SignUp>): any {
       toast.success('Welcome to my website!');
       yield put(signupSuccess({ accessToken: res.token, user: res.data.user }));
     }
-  } catch (error) {}
+  } catch (error) { }
 }
 function* logout() {
   try {
@@ -50,7 +50,7 @@ function* onLogout() {
 }
 
 function* userSaga() {
-  yield all([call(onSignin), call(onSignUp)]);
+  yield all([call(onSignin), call(onSignUp), call(onLogout)]);
 }
 
 export default userSaga;

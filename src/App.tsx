@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'tippy.js/dist/tippy.css';
 
 import AppLayout from './components/Layout/AppLayout';
 import RequireAuth from './components/RequireAuth/RequireAuth';
@@ -23,6 +24,7 @@ import { logginSuccess } from './store/user/userSlice';
 function App() {
   const axiosPrivate = useAxiosPrivate();
   const dispatch = useDispatch();
+
   useEffect(() => {
     const refresh = async () => {
       try {
@@ -34,16 +36,18 @@ function App() {
             user: res.data.data.user,
           })
         );
-      } catch (error: any) {}
+      } catch (error: any) { }
     };
 
-    refresh();
+    window.onload = () => {
+      refresh();
+    };
   }, [axiosPrivate, dispatch]);
 
   return (
     <>
       <Routes>
-      <Route path="/" element={<AppLayout />}>
+        <Route path="/" element={<AppLayout />}>
           {/* public routes */}
           <Route path="unauthorized" element={<Unauthorized />} />
           <Route element={<Main />}>
@@ -63,7 +67,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-      
+
       <ToastContainer
         autoClose={2000}
         position="bottom-right"
@@ -76,7 +80,7 @@ function App() {
         pauseOnHover
       />
     </>
-     // <>
+    // <>
     //   <Routes>
     //     <Route path="/" element={<Main />}>
     //       <Route index element={<Home />} />
