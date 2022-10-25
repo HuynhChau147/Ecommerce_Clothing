@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './FormInput.scss';
 
 type FormInputProps = {
-  value: string;
+  value: string | number;
   label: string;
   errorMessage?: string;
   pattern?: string;
@@ -32,7 +32,10 @@ const FormInput = ({
       {label && (
         <label
           htmlFor=""
-          className={`form-input-label ${otherProps.value.length ? 'shrink' : ''
+          className={`form-input-label ${(typeof otherProps.value === 'number' && otherProps.value >= 0) ||
+              (typeof otherProps.value === 'string' && otherProps.value.length)
+              ? 'shrink'
+              : ''
             }`}
         >
           {label}

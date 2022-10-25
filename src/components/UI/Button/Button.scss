@@ -15,46 +15,14 @@
     transition: all 0.2s ease-in-out;
     text-align: center;
 
-    &--primary {
-        background-color: $color--primary;
-
-        &-light {
-            background-color: $color--primary-light;
-        }
-
-        &-dark {
-            background-color: $color--primary-dark;
-        }
-    }
-
-    &--orange {
-        background-color: $color--accent-orange;
-    }
-
-    &--red {
-        background-color: $color--accent-red;
-        color: $color--white;
-      }
-
-    &--grey {
-        background-color: $color--grey-dark;
-        color: $color--white;
-    }
-
-    &--transparent {
-        background-color: transparent;
-
-        &:hover {
-            background-color: rgba($color--black, 0.08);
-        }
-    }
+    font-size: inherit;
 
     &--horizontal {
         width: 100%;
     }
 
     &--outline {
-        color: $color--grey-dark-3 !important;
+        color: $color--grey-dark-3;
         border-color: $color--black;
 
         &-white {
@@ -81,6 +49,45 @@
             transform: translateY(1px);
         }
     }
+
+    &--primary {
+        background-color: $color--primary;
+
+        &-light {
+            background-color: $color--primary-light;
+        }
+
+        &-dark {
+            background-color: $color--primary-dark;
+        }
+    }
+
+    &--orange {
+        background-color: $color--accent-orange;
+    }
+
+    &--red {
+        background-color: $color--accent-red;
+        color: $color--white;
+    }
+
+    &--grey {
+        background-color: $color--grey-dark;
+        color: $color--white;
+    }
+
+    &--violet {
+        background-color: $color--accent-violet;
+        color: $color--white;
+    }
+
+    &--transparent {
+        background-color: transparent;
+
+        &:hover {
+            background-color: rgba($color--black, 0.08);
+        }
+    }
 }
 
 .btn.disabled {
@@ -91,10 +98,14 @@
     cursor: default;
 }
 
+.btn-title {
+    color: currentColor;
+}
+
 .btn-icon {
     color: $color--black;
-  }
-  
+}
+
 .btn-icon+.btn-title,
 .btn-title+.btn-icon {
     margin-left: 1rem;
