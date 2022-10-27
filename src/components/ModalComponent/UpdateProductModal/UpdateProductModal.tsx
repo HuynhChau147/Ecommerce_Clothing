@@ -186,6 +186,8 @@ const UpdateProductModal = ({
                     formData.append('images', image.file, image.file.name);
                 });
 
+            console.log(formData.getAll('sizes'));
+
             const res = await axiosPrivate.patch(
                 `products/${product._id}`,
                 formData,
@@ -202,6 +204,7 @@ const UpdateProductModal = ({
                 onClose();
             }
         } catch (error) {
+            toast.warning('Something went wrong !!!');
             console.log(error);
         }
     };
@@ -255,39 +258,39 @@ const UpdateProductModal = ({
                             <div className="create-product__category col c-3">
                                 <span>Category</span>
                                 <Multiselect
-                  options={categories}
-                  selectedValues={categories.filter(category => {
-                    return category._id === product.category;
-                  })}
-                  displayValue="name"
-                  singleSelect
-                  style={{
-                    chips: {
-                      background: 'white',
-                    },
-                    // multiselectContainer: {
-                    //   color: 'black',
-                    // },
-                    searchBox: {
-                      width: '100%',
-                      borderRadius: '999px',
-                      fontSize: '10px',
-                    },
-                    inputField: {
-                      fontSize: '14px',
-                    },
-                  }}
-                  onSelect={(_, item) =>
-                    setProductInput({ ...productInput, category: item._id })
-                  }
-                  customCloseIcon={<></>}
-                />
+                                    options={categories}
+                                    selectedValues={categories.filter(category => {
+                                        return category._id === product.category;
+                                    })}
+                                    displayValue="name"
+                                    singleSelect
+                                    style={{
+                                        chips: {
+                                            background: 'white',
+                                        },
+                                        // multiselectContainer: {
+                                        //   color: 'black',
+                                        // },
+                                        searchBox: {
+                                            width: '100%',
+                                            borderRadius: '999px',
+                                            fontSize: '10px',
+                                        },
+                                        inputField: {
+                                            fontSize: '14px',
+                                        },
+                                    }}
+                                    onSelect={(_, item) =>
+                                        setProductInput({ ...productInput, category: item._id })
+                                    }
+                                    customCloseIcon={<></>}
+                                />
                             </div>
                             <div className="create-product__sizes col c-9">
                                 <span>Sizes</span>
                                 <Multiselect
                                     className="create-product__sizes-select"
-                                    options={['S', 'M', 'L', 'XL', 'XXL', 'XXL']}
+                                    options={['S', 'M', 'L', 'XL', 'XXL', 'XXXL']}
                                     selectedValues={product.sizes}
                                     isObject={false}
                                     style={{
@@ -304,9 +307,12 @@ const UpdateProductModal = ({
                                             width: '100%',
                                         },
                                     }}
-                                    onSelect={list =>
-                                        setProductInput({ ...productInput, sizes: list })
-                                    }
+                                    onSelect={list => {
+                                        return setProductInput({ ...productInput, sizes: list });
+                                    }}
+                                    onRemove={list => {
+                                        return setProductInput({ ...productInput, sizes: list });
+                                    }}
                                 />
                             </div>
                         </div>

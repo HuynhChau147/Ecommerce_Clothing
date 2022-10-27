@@ -1,153 +1,179 @@
 @use '../../../sass/variables' as *;
 
-.product-modal {
-    width: 65vw;
+.product-card {
+    // width: 26rem;
+    // height: 40rem;
+    background-color: $color--grey-light-1;
+    color: $color--black;
+    border-radius: 4px;
+    transition: all 0.2s;
+
+    display: flex;
+    flex-direction: column;
+
     position: relative;
-    padding: 1.5rem 0.8rem;
 
-    .content {
-        display: flex;
-        gap: 2rem;
-    }
-
-    .close {
-        position: absolute;
-        padding: 0.2rem 0.6rem;
-        top: -8px;
-        right: 0;
-
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 1rem 2rem 3rem rgba($color--black, 0.1);
         cursor: pointer;
-        font-size: 3.2rem;
     }
 
-    &__images {
-        width: 40%;
+    &__image {
+        height: 70%;
+        position: relative;
         overflow: hidden;
-    }
 
-    &__image-cover {
-        width: 100%;
-        height: 80%;
-        object-fit: cover;
-        border-radius: 4px;
-    }
-
-    &__image-list {
-        overflow: auto;
-        display: flex;
-        gap: 1rem;
-    }
-
-    &__image-item {
-        width: 80px;
-        height: 100%;
+        &:hover img {
+            transform: scale(1.04);
+        }
 
         &>img {
             width: 100%;
             height: 100%;
+            border-radius: 4px;
             object-fit: cover;
-            border-radius: 2px;
+            transition: all 0.3s ease-in;
+        }
+
+        &:hover .product-card__cart {
+            transform: translate(0);
+            visibility: visible;
+            opacity: 1;
         }
     }
 
-    &__contents {
-        width: fit-content;
-        display: flex;
+    &__cart {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+        width: 100%;
+        height: 22%;
+        background-color: rgba($color--black, 0.5);
+        font-size: 2.8rem;
+        color: $color--grey-light-1;
+        transition: all 0.25s ease-in;
+
+        transform: translateY(100%);
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    &__content {
         flex: 1;
-        flex-direction: column;
-        gap: 2rem;
-
-        & h4 {
-            color: $color--grey-dark;
-        }
-    }
-
-    &__title {
-        color: $color--grey-dark-3;
-    }
-
-    &__material {
+        padding: 1rem 1.5rem;
         display: flex;
-        gap: 1.2rem;
+        flex-direction: column;
+    }
+
+    &__rates {
+        display: flex;
+        gap: 0.4rem;
+    }
+
+    &__name {
+        font-family: $font-family--frankLibre;
+        width: 100%;
+        height: 3.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: capitalize;
+        padding-top: 0.5rem;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
     }
 
     &__price {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        font-size: 2rem;
-
-        &--original {
-            font-size: 1.8rem;
-            color: $color--accent-red;
-            position: relative;
-
-            &::after {
-                position: absolute;
-                content: '';
-                display: block;
-                width: 100%;
-                height: 1px;
-                top: 53%;
-                left: 0;
-                background-color: currentColor;
-            }
-        }
-
-        &--sale {
-            font-weight: 600;
-            font-size: 2.8rem;
-        }
-
-        &--saleOff {
-            font-size: 1.6rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 8px;
-            background-color: $color--primary;
-            box-shadow: 0 4px 12px rgba($color--primary, 0.8);
-        }
-    }
-
-    &__sizes {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-
-        &>kbd {
-            min-width: 6rem;
-            padding: 0.2rem 0.4rem;
-            text-align: center;
-            border: 1px solid #000;
-            user-select: none;
-        }
-
-        &>.active {
-            background-color: rgba($color--accent-orange, 0.8);
-        }
-    }
-
-    &__colors {
-        display: none;
-    }
-
-    &__quantity {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        user-select: none;
-
-        &>span:nth-of-type(1),
-        &>span:nth-of-type(3) {
-            padding: 0.4rem 0.8rem;
-            cursor: pointer;
-        }
-    }
-
-    &__actions {}
-
-    &__btn {
-        text-transform: uppercase;
+        margin-top: auto;
+        padding-top: 1.5rem;
         font-size: 1.8rem;
-        padding: 1.6rem 3.2rem !important;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    &__price-original {
+        color: $color--accent-red;
+        font-weight: 400;
+        font-size: 1.6rem;
+        position: relative;
+
+        &::after {
+            position: absolute;
+            content: '';
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: currentColor;
+            top: 52%;
+            left: 0;
+        }
+    }
+
+    &__price-sale {
+        font-weight: 500;
+        font-size: 2.2rem;
+    }
+
+    &__saleOff {
+        position: absolute;
+        top: -6px;
+        right: 0;
+        width: 44px;
+        height: 44px;
+        text-align: center;
+        // padding: 1rem 0.8rem;
+        font-size: 1.2rem;
+        background-color: $color--accent-orange;
+        border-top-right-radius: 4px;
+        text-align: center;
+
+        transition: all 0.2s;
+
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+
+        &::before,
+        &::after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            // border-width: 1.25rem;
+        }
+
+        &::after {
+            left: 16%;
+            top: 64%;
+            width: 70%;
+            height: 70%;
+            background-color: $color--accent-orange;
+            transform: rotate(45deg);
+            border-bottom-right-radius: 4px;
+            z-index: 1;
+
+            // border-color: $color--accent-orange transparent transparent
+            //   $color--accent-orange;
+        }
+
+        &::before {
+            top: 0;
+            left: -4px;
+            background-color: rgba($color--black, 0.6);
+            height: 16px;
+            width: 80%;
+            transform: skewX(-25deg);
+            z-index: -1;
+        }
+
+        &>span {
+            position: absolute;
+            z-index: 3;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 }
