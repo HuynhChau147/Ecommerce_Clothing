@@ -6,9 +6,11 @@ import './Pagination.scss';
 type PaginationProps = {
     totalPages: number;
     onPageChange: (page: any) => void;
-  };
+};
 
-  const Pagination = ({ totalPages, onPageChange }: PaginationProps) => {
+const Pagination = ({ totalPages, onPageChange }: PaginationProps) => {
+    if (totalPages === 0) return <></>;
+
     return (
         <ReactPaginate
             onPageChange={onPageChange}
