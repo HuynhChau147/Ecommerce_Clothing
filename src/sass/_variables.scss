@@ -7,10 +7,8 @@
 $color--primary: #d3a17e;
 $color--primary-light: #eeddcc;
 $color--primary-dark: #34251f;
-$color--primary-linear: linear-gradient(
-  $color--primary-light,
-  $color--primary-dark
-);
+$color--primary-linear: linear-gradient($color--primary-light,
+    $color--primary-dark);
 
 $color--background: #e5e5e5;
 
@@ -34,7 +32,7 @@ $color--text: #7b88a8;
 $color--text-gray: #e7e5ea;
 $color--text-white: #e7e5ea;
 
-// FONT 
+// FONT
 $font-size--default: 1.6rem;
 $font-family--logo: 'Dancing Script', cursive;
 $font-family--frankLibre: 'Frank Ruhl Libre', serif;
@@ -44,3 +42,6 @@ $container--width-xl: 75%;
 $container--width-lg: 80%;
 $container--width-md: 86%;
 $container--width-sm: 90%;
+
+// HEIGHT
+$header--height: 8rem;
