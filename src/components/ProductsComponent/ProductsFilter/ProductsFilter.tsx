@@ -115,19 +115,19 @@ const ProductsFilter = ({ filters, setFilter }: ProductsFilterProps) => {
                 <BsChevronDown />
               </div>
               <div className="filter-contents">
-              sizes.map((size, i) => (
-                  <div
-                    key={i}
-                    className={`filter-contents__size ${
-                      filters.sizes?.includes(size)
-                        ? 'filter-contents__size--active'
-                        : ''
-                    }`}
-                    onClick={() => sizeChangeHandler(size)}
-                  >
-                    <span>{size}</span>
-                  </div>
-                ))}
+                {sizes.map((size, i) => (
+                    <div
+                      key={i}
+                      className={`filter-contents__size ${
+                        filters.sizes?.includes(size)
+                          ? 'filter-contents__size--active'
+                          : ''
+                      }`}
+                      onClick={() => sizeChangeHandler(size)}
+                    >
+                      <span>{size}</span>
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="filter-toggle__item"></div>
