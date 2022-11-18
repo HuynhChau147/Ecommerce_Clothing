@@ -17,6 +17,7 @@
   }
 
   &__item {
+
     // footer logo
     &:nth-of-type(1) {
       display: flex;
@@ -43,23 +44,25 @@
       flex-direction: column;
       gap: 2rem;
 
-      & > div {
+      &>div {
         display: flex;
+        align-items: center;
         background-color: #fff;
         border-radius: 999px;
-        padding-left: 1.2rem;
+        padding-left: 1.4rem;
       }
 
-      & > div > button {
+      &>div>button {
         color: $color--grey-dark-3;
         position: relative;
       }
 
-      & > div > input {
+      &>div>input {
         caret-color: $color--accent-orange;
+        height: 95%;
       }
 
-      & > div > button::after {
+      &>div>button::after {
         position: absolute;
         content: '';
         display: block;
@@ -73,11 +76,9 @@
     }
   }
 
-  &__hotline {
-  }
+  &__hotline {}
 
-  &__contact {
-  }
+  &__contact {}
 
   &__about {
     line-height: 1.7;
@@ -88,7 +89,7 @@
   }
 
   &__payment {
-    & > div {
+    &>div {
       max-width: 20rem;
       display: flex;
       flex-wrap: wrap;
@@ -108,6 +109,7 @@
     border-color: $color--grey-light-2;
   }
 }
+
 .logo {
   font-family: 'Dancing Script', cursive;
   color: $color--grey-light-1;

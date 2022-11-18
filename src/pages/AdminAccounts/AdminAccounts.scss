@@ -35,7 +35,7 @@
       appearance: none;
     }
 
-    & label input:checked ~ i::after {
+    & label input:checked~i::after {
       background-color: #2aa0ff;
     }
 
@@ -72,13 +72,11 @@
     border-bottom: 1px solid #ccc;
   }
 
-  &__h-block {
-  }
-
   &__list {
     list-style: none;
 
     height: 48rem;
+    overflow: auto;
 
     @include responds(lg) {
       height: fit-content;
@@ -118,7 +116,7 @@
     appearance: none;
   }
 
-  &__content input:checked ~ i {
+  &__content input:checked~i {
     background-color: #2aa0ff;
   }
 
@@ -144,7 +142,7 @@
     }
   }
 
-  &__content input:checked ~ i::before {
+  &__content input:checked~i::before {
     left: calc(100% - 17.5px);
   }
 
