@@ -38,7 +38,6 @@ const DetailProduct = () => {
       if (!id) return;
       const result = await productServices.getProduct(id);
 
-      console.log(result);
       setProduct(result.data);
     };
     fetchProduct(productId);
@@ -161,7 +160,7 @@ const DetailProduct = () => {
                 leftIcon={<BsCart4 />}
               >
                 Add to cart
-                </Button>
+              </Button>
             </div>
           </div>
           <div className="product__description">
