@@ -3,7 +3,10 @@
 
 // Home Collection
 .collection {
-  padding: 4rem 0;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+  border-top: 1px solid #ccc;
 
   &__heading {
     display: flex;
@@ -45,13 +48,14 @@
 
     position: relative;
 
-    & > div:nth-of-type(1) {
+    &>div:nth-of-type(1) {
       width: 12rem;
       height: 10rem;
       top: 0;
       left: 2rem;
     }
-    & > div:nth-of-type(2) {
+
+    &>div:nth-of-type(2) {
       width: 12rem;
       height: 10rem;
       bottom: 0;
