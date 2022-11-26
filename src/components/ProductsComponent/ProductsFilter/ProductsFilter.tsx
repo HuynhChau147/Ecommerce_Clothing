@@ -69,10 +69,6 @@ const ProductsFilter = ({ filters, setFilter }: ProductsFilterProps) => {
     });
   };
 
-  const expandHandler = (obj: {}) => {
-    setExpandContent({ ...expandContent, ...obj });
-  };
-
   const hideFilterToggle = () => {
     setIsFilterToggle(false);
   };
@@ -104,30 +100,30 @@ const ProductsFilter = ({ filters, setFilter }: ProductsFilterProps) => {
             <Button leftIcon={<IoCloseOutline />} onClick={hideFilterToggle} />
           </div>
           <div className="filter-toggle__wrapper">
-            <div
-              className={`filter-toggle__item ${expandContent.collection ? 'expand' : ''
-                }`}
-            >
-              <div className="filter-title">
+            <div className="filter-toggle__item">
+              <div
+                className="filter-title"
+                onClick={() =>
+                  setExpandContent({
+                    ...expandContent,
+                    collection: !expandContent.collection,
+                  })
+                }
+              >
                 <h2>Collection</h2>
-                {expandContent.collection ? (
-                  <BsChevronUp
-                    onClick={() => expandHandler({ collection: false })}
-                  />
-                ) : (
-                  <BsChevronDown
-                    onClick={() => expandHandler({ collection: true })}
-                  />
-                )}
+                {expandContent.collection ? <BsChevronUp /> : <BsChevronDown />}
               </div>
-              <div className="filter-contents">
+              <div
+                className={`filter-contents ${expandContent.collection ? 'expand' : ''
+                  }`}
+              >
                 {!!categories.length &&
                   categories.map(category => (
                     <div
                       key={category._id}
                       className={`filter-toggle__category ${filters.category === category._id
-                        ? 'filter-toggle__category--active'
-                        : ''
+                          ? 'filter-toggle__category--active'
+                          : ''
                         }`}
                       onClick={() => categoryChangeHandler(category._id)}
                     >
@@ -136,27 +132,29 @@ const ProductsFilter = ({ filters, setFilter }: ProductsFilterProps) => {
                   ))}
               </div>
             </div>
-            <div
-              className={`filter-toggle__item ${expandContent.size ? 'expand' : ''
-                }`}
-            >
-              <div className="filter-title">
+            <div className="filter-toggle__item">
+              <div
+                className="filter-title"
+                onClick={() =>
+                  setExpandContent({
+                    ...expandContent,
+                    size: !expandContent.size,
+                  })
+                }
+              >
                 <h2>Size</h2>
-                {expandContent.size ? (
-                  <BsChevronUp onClick={() => expandHandler({ size: false })} />
-                ) : (
-                  <BsChevronDown
-                    onClick={() => expandHandler({ size: true })}
-                  />
-                )}
+                {expandContent.size ? <BsChevronUp /> : <BsChevronDown />}
               </div>
-              <div className="filter-contents">
+              <div
+                className={`filter-contents ${expandContent.size ? 'expand' : ''
+                  }`}
+              >
                 {sizes.map((size, i) => (
                   <div
                     key={i}
                     className={`filter-contents__size ${filters.sizes?.includes(size)
-                      ? 'filter-contents__size--active'
-                      : ''
+                        ? 'filter-contents__size--active'
+                        : ''
                       }`}
                     onClick={() => sizeChangeHandler(size)}
                   >
@@ -165,29 +163,29 @@ const ProductsFilter = ({ filters, setFilter }: ProductsFilterProps) => {
                 ))}
               </div>
             </div>
-            <div
-              className={`filter-toggle__item ${expandContent.options ? 'expand' : ''
-                }`}
-            >
-              <div className="filter-title">
+            <div className="filter-toggle__item">
+              <div
+                className="filter-title"
+                onClick={() =>
+                  setExpandContent({
+                    ...expandContent,
+                    options: !expandContent.options,
+                  })
+                }
+              >
                 <h2>Options</h2>
-                {expandContent.options ? (
-                  <BsChevronUp
-                    onClick={() => expandHandler({ options: false })}
-                  />
-                ) : (
-                  <BsChevronDown
-                    onClick={() => expandHandler({ options: true })}
-                  />
-                )}
+                {expandContent.options ? <BsChevronUp /> : <BsChevronDown />}
               </div>
-              <div className="filter-contents">
+              <div
+                className={`filter-contents ${expandContent.options ? 'expand' : ''
+                  }`}
+              >
                 {options.map((option, i) => (
                   <div
                     key={option.id}
                     className={`filter-contents__option ${option.value === filters.sort
-                      ? 'filter-contents__option--active'
-                      : ''
+                        ? 'filter-contents__option--active'
+                        : ''
                       }`}
                     onClick={() => optionChangeHandler(option.value)}
                   >
