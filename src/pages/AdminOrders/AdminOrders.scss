@@ -2,6 +2,9 @@
 @use '../../sass/mixins' as *;
 
 .admin-order {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     &__header {
         margin-bottom: 2rem;
         display: flex;
@@ -32,7 +35,9 @@
     }
 
     &__list {
-        height: 48rem;
+        position: relative;
+        flex: 1;
+        // height: 48rem;
         overflow: auto;
 
         @include responds(lg) {
@@ -56,6 +61,10 @@
         gap: 8px;
         border-bottom: 1px solid #000;
 
+        &:nth-of-type(2n + 2) {
+            background-color: rgba($color--black, 0.05);
+          }
+      
         &:hover {
             cursor: pointer;
             background-color: rgba($color--black, 0.15);
