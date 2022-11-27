@@ -5,8 +5,8 @@ import Pagination from '../../components/Pagination/Pagination';
 import SearchInput from '../../components/UI/SearchInput/SearchInput';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useDebounce from '../../hooks/useDebounce';
-import { AccountModel } from '../../Model/AccountModel';
 import { userSelector } from '../../store/user/userSelector';
+import { AccountModel } from '../../utils/types';
 
 import './AdminAccounts.scss';
 
@@ -95,7 +95,7 @@ const AdminAccounts = () => {
         toast.success('Update!');
         setIsUpdate(true);
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const pageChangeHandler = (page: any) => {
@@ -171,7 +171,7 @@ const AdminAccounts = () => {
                 <span className="admin-account__span">{account.id}</span>
               </div>
               <div className="admin-account__content">
-              <h4 className="admin-account__span">{account.name}</h4>
+                <h4 className="admin-account__span">{account.name}</h4>
               </div>
               <div className="admin-account__content">
                 <span className="admin-account__span">{account.email}</span>
@@ -213,4 +213,4 @@ const AdminAccounts = () => {
     </section>
   );
 };
-  export default AdminAccounts;
+export default AdminAccounts;

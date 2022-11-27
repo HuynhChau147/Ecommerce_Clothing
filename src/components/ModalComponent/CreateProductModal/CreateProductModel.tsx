@@ -5,12 +5,12 @@ import { RiImageAddLine } from 'react-icons/ri';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 import * as categoryService from '../../../services/categoryServices';
-import { CategoryModel } from '../../../Model/categoryModel';
 import FormInput from '../../FormInput/FormInput';
 import Modal from '../../UI/Modal/Modal';
 import './CreateProductModal.scss';
 import Button from '../../UI/Button/Button';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+import { CategoryModel } from '../../../utils/types';
 
 type CreateProductModalProps = {
     onClose: () => void;
@@ -115,14 +115,14 @@ const CreateProductModel = ({
 
     const validate = useMemo(() => {
         return !(
-          productInput.name.length &&
-          productInput.material.length &&
-          imageCoverPreview &&
-          productInput.sizes.length &&
-          productInput.category.length
+            productInput.name.length &&
+            productInput.material.length &&
+            imageCoverPreview &&
+            productInput.sizes.length &&
+            productInput.category.length
         );
-      }, [productInput, imageCoverPreview]);
-    
+    }, [productInput, imageCoverPreview]);
+
     const formSubmitHandler = async (e: React.FormEvent) => {
         e.preventDefault();
         if (validate) return;

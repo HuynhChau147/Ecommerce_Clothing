@@ -3,12 +3,12 @@ import AdminProductItem from '../../components/AdminProductItem/AdminProductItem
 
 import * as productServices from '../../services/productServices';
 import './AdminProduct.scss';
-import { ProductModel } from '../../Model/productModel';
 import Pagination from '../../components/Pagination/Pagination';
 import useDebounce from '../../hooks/useDebounce';
 import HeadingCta from './HeadingCta';
 import HeaderProductBlock from './HeaderProductBlock';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import { ProductModel } from '../../utils/types';
 
 const AdminProduct = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -59,8 +59,8 @@ const AdminProduct = () => {
       <HeaderProductBlock />
 
       <div className="admin-product-listitem">
-      {isSearchLoading && <Spinner />}
-      {!!products.length &&
+        {isSearchLoading && <Spinner />}
+        {!!products.length &&
           products.map(product => (
             <AdminProductItem
               key={product._id}
@@ -70,7 +70,7 @@ const AdminProduct = () => {
           ))}
       </div>
       <div className="admin-product-footer">
-      {!!totalPages && (
+        {!!totalPages && (
           <Pagination
             totalPages={totalPages}
             onPageChange={pageChangeHandler}

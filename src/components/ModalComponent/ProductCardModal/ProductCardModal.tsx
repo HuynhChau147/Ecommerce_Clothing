@@ -5,13 +5,12 @@ import { BsCart4 } from 'react-icons/bs';
 
 import Modal from '../../UI/Modal/Modal';
 import Button from '../../UI/Button/Button';
-import { ProductModel } from '../../../Model/productModel';
-import { CartModel } from '../../../Model/cartModel';
 import { useDispatch } from 'react-redux';
 import { addCart } from '../../../store/cart/cartSlice';
 import './ProductCardModal.scss';
 import ImageProductSlideShow from '../../ImageProductSlideShow/ImageProductSlideShow';
 import Rating from '../../UI/Rating/Rating';
+import { CartModel, ProductModel } from '../../../utils/types';
 
 type ProductCardModalProps = {
     product: ProductModel;
@@ -57,21 +56,21 @@ const ProductCardModal = ({ product, onClose }: ProductCardModalProps) => {
     return (
         <Modal onClose={onClose} className="product-modal">
             <div className="content">
-            <ImageProductSlideShow
-          className="product-modal__images"
-          images={
-            product.images
-              ? [product.imageCover, ...product.images]
-              : [product.imageCover]
-          }
-        />
+                <ImageProductSlideShow
+                    className="product-modal__images"
+                    images={
+                        product.images
+                            ? [product.imageCover, ...product.images]
+                            : [product.imageCover]
+                    }
+                />
                 <div className="product-modal__contents">
                     <h2 className="product-modal__title">{product.name}</h2>
                     <div className="product-modal__rating">
                         <Rating
-                        count={5}
-                        rating={Math.round(product.ratingsAverage)}
-                        color={{ filled: '#FFBF00', unfilled: '#ccc' }}
+                            count={5}
+                            rating={Math.round(product.ratingsAverage)}
+                            color={{ filled: '#FFBF00', unfilled: '#ccc' }}
                         />
                     </div>
                     <div className="product-modal__material">

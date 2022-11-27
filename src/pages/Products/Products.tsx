@@ -3,11 +3,11 @@ import Pagination from '../../components/Pagination/Pagination';
 
 import * as productServices from '../../services/productServices';
 import ProductCard from '../../components/Products/ProductCard/ProductCard';
-import { ProductModel } from '../../Model/productModel';
 import './Products.scss';
 import ProductsFilter from '../../components/ProductsComponent/ProductsFilter/ProductsFilter';
 import useDebounce from '../../hooks/useDebounce';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import { ProductModel } from '../../utils/types';
 // import { useDispatch } from 'react-redux';
 // import { categorySelector } from '../../store/search/searchSelector';
 // import { setCategory } from '../../store/search/searchSlice';
@@ -19,13 +19,13 @@ export type ProductFilters = {
 };
 
 const Products = () => {
-  //const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [filters, setFilters] = useState({} as ProductFilters);
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState<ProductModel[]>([]);
   const [totalPages, setTotalPages] = useState<number>();
   const [pageActive, setPageActive] = useState<number>(1);
-  //const categoryFilter = useSelector(categorySelector);
+  // const categoryFilter = useSelector(categorySelector);
 
   const filter = useMemo(() => {
     const obj = { ...filters };
@@ -76,14 +76,14 @@ const Products = () => {
 
     window.scrollTo(0, 0);
     fetchProducts(pageActive, debounce);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [pageActive]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageActive]);
 
-useEffect(() => {
-  setIsLoading(true);
+  useEffect(() => {
+    setIsLoading(true);
 
-  fetchProducts(1, debounce);
-}, [debounce]);
+    fetchProducts(1, debounce);
+  }, [debounce, fetchProducts]);
 
   const pageChangeHandler = useCallback((page: any) => {
     setPageActive(page.selected + 1);
@@ -94,15 +94,15 @@ useEffect(() => {
       {isLoading && <Spinner />}
       <ProductsFilter filters={filters} setFilter={setFilters} />
       <div className="products__grid">
-      {products.map(product => (
+        {products.map(product => (
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
 
       <div className="products__footer">
-      {!!totalPages && totalPages > 1 && (
+        {!!totalPages && totalPages > 1 && (
           <Pagination
-          totalPages={totalPages}
+            totalPages={totalPages}
             onPageChange={pageChangeHandler}
           />
         )}
