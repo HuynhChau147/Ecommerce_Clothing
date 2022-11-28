@@ -80,7 +80,7 @@
       font-size: 2.4rem;
       text-align: right;
     }
-  
+
     & button {
       display: none;
 
@@ -108,7 +108,7 @@
     @include responds(xl) {
       height: 100%;
     }
-    
+
     &::-webkit-scrollbar {
       width: 6px;
     }
@@ -150,10 +150,6 @@
     height: fit-content;
     overflow-y: hidden;
     transition: all 0.8s ease;
-
-    @include responds(md) {
-      height: 30px;
-    }
 
     &::-webkit-scrollbar {
       width: 4px;
