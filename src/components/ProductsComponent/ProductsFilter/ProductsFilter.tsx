@@ -10,6 +10,7 @@ import './ProductsFilter.scss';
 import { CategoryModel } from '../../../utils/types';
 import { useSearchParams } from 'react-router-dom';
 import useCurrentParams from '../../../hooks/useCurrentParams';
+import useWindowDimension from '../../../hooks/useWindowDimension';
 
 const sizes = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 const options = [
@@ -27,9 +28,10 @@ type ProductsFilterProps = {
 };
 
 const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
+  const { width } = useWindowDimension();
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentParams] = useCurrentParams();
-  const [isFilterToggle, setIsFilterToggle] = useState(true);
+  const [isFilterToggle, setIsFilterToggle] = useState(width > 1200);
   const [categories, setCategories] = useState<CategoryModel[]>([]);
   const [expandContent, setExpandContent] = useState({
     collection: true,
@@ -138,8 +140,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
                   categories.map(category => (
                     <div
                       key={category._id}
-                      className={`filter-toggle__category ${
-                        searchParams.get('category')?.includes(category._id)
+                      className={`filter-toggle__category ${searchParams.get('category')?.includes(category._id)
                           ? 'filter-toggle__category--active'
                           : ''
                         }`}
@@ -170,8 +171,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
                 {sizes.map((size, i) => (
                   <div
                     key={i}
-                    className={`filter-contents__size ${
-                      searchParams.getAll('size')?.includes(size)
+                    className={`filter-contents__size ${searchParams.getAll('size')?.includes(size)
                         ? 'filter-contents__size--active'
                         : ''
                       }`}
@@ -202,8 +202,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
                 {options.map((option, i) => (
                   <div
                     key={option.id}
-                    className={`filter-contents__option ${
-                      searchParams.get('sort') === option.value
+                    className={`filter-contents__option ${searchParams.get('sort') === option.value
                         ? 'filter-contents__option--active'
                         : ''
                       }`}
