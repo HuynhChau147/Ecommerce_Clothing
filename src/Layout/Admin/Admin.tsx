@@ -21,12 +21,11 @@ const Admin = () => {
         <AiOutlineBars />
       </div>
       <div
-        className={`admin-toggle-overlay ${
-          isNavbarActive ? 'admin-toggle-overlay--active' : ''
-        }`}
+        className={`admin-toggle-overlay ${isNavbarActive ? 'admin-toggle-overlay--active' : ''
+          }`}
         onClick={hideNavHandler}
       ></div>
-      <AdminNavbar isActive={isNavbarActive} />
+      <AdminNavbar isActive={isNavbarActive} hideNav={hideNavHandler} />
       <div className="admin-data">
         <Outlet />
       </div>
