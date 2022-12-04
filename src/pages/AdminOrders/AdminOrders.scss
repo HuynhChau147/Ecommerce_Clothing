@@ -5,6 +5,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+
     &__header {
         margin-bottom: 2rem;
         display: flex;
@@ -63,8 +64,8 @@
 
         &:nth-of-type(2n + 2) {
             background-color: rgba($color--black, 0.05);
-          }
-      
+        }
+
         &:hover {
             cursor: pointer;
             background-color: rgba($color--black, 0.15);
@@ -224,8 +225,22 @@
             }
         }
 
-        &.shipped {
+        &.shipping {
             background-color: rgba($color--accent-violet, 0.95);
+            color: $color--white;
+
+            @include responds(lg) {
+                background-color: transparent;
+                color: $color--black;
+            }
+
+            &> :first-child {
+                background-color: $color--accent-violet;
+            }
+        }
+
+        &.success {
+            background-color: rgba(#33ad40, 0.95);
             color: $color--white;
 
             @include responds(lg) {
