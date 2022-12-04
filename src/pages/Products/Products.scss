@@ -12,9 +12,11 @@
         &:nth-of-type(1),
         &:nth-of-type(2) {
             color: $color--grey-light-2;
-            background: linear-gradient(to top right,
-                    $color--primary-light,
-                    $color--primary-dark );
+            background: linear-gradient(
+                to top right,
+                $color--primary-light,
+                $color--primary-dark 
+            );
         }
     }
 
@@ -22,7 +24,7 @@
         margin-top: 2rem;
         margin-right: 2rem;
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 26rem));
         gap: 2rem;
 
         @include responds(xl) {

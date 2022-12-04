@@ -12,7 +12,7 @@ import { useSearchParams } from 'react-router-dom';
 import useCurrentParams from '../../../hooks/useCurrentParams';
 import useWindowDimension from '../../../hooks/useWindowDimension';
 
-const sizes = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
+const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
 const options = [
   { id: 1, name: 'Newest', value: '-createAt' },
   { id: 2, name: 'Oldest', value: 'createAt' },
@@ -103,7 +103,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
           rightIcon={<FiFilter />}
           onClick={showFilterToggle}
         >
-          Filter
+          Bộ lọc
         </Button>
       </div>
       <div className="filter-toggle">
@@ -111,11 +111,12 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
           <div className="overlay" onClick={hideFilterToggle}></div>
         )}
         <div
-          className={`products__filter-toggle ${isFilterToggle ? 'products__filter-toggle--active' : ''
+          className={`products__filter-toggle ${
+            isFilterToggle ? 'products__filter-toggle--active' : ''
             }`}
         >
           <div className="filter-toggle__header">
-            <h2>filters</h2>
+            <h2>Bộ lọc</h2>
             <Button leftIcon={<IoCloseOutline />} onClick={hideFilterToggle} />
           </div>
           <div className="filter-toggle__wrapper">
@@ -129,18 +130,20 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
                   })
                 }
               >
-                <h2>Collection</h2>
+                <h2>Danh mục</h2>
                 {expandContent.collection ? <BsChevronUp /> : <BsChevronDown />}
               </div>
               <div
-                className={`filter-contents ${expandContent.collection ? 'expand' : ''
+                className={`filter-contents ${
+                  expandContent.collection ? 'expand' : ''
                   }`}
               >
                 {!!categories.length &&
                   categories.map(category => (
                     <div
                       key={category._id}
-                      className={`filter-toggle__category ${searchParams.get('category')?.includes(category._id)
+                      className={`filter-toggle__category ${
+                        searchParams.get('category')?.includes(category._id)
                           ? 'filter-toggle__category--active'
                           : ''
                         }`}
@@ -161,17 +164,19 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
                   })
                 }
               >
-                <h2>Size</h2>
+                <h2>Kích cỡ</h2>
                 {expandContent.size ? <BsChevronUp /> : <BsChevronDown />}
               </div>
               <div
-                className={`filter-contents ${expandContent.size ? 'expand' : ''
+                className={`filter-contents ${
+                  expandContent.size ? 'expand' : ''
                   }`}
               >
                 {sizes.map((size, i) => (
                   <div
                     key={i}
-                    className={`filter-contents__size ${searchParams.getAll('size')?.includes(size)
+                    className={`filter-contents__size ${
+                      searchParams.getAll('size')?.includes(size)
                         ? 'filter-contents__size--active'
                         : ''
                       }`}
@@ -192,17 +197,19 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
                   })
                 }
               >
-                <h2>Options</h2>
+                <h2>Tùy chọn </h2>
                 {expandContent.options ? <BsChevronUp /> : <BsChevronDown />}
               </div>
               <div
-                className={`filter-contents ${expandContent.options ? 'expand' : ''
+                className={`filter-contents ${
+                  expandContent.options ? 'expand' : ''
                   }`}
               >
                 {options.map((option, i) => (
                   <div
                     key={option.id}
-                    className={`filter-contents__option ${searchParams.get('sort') === option.value
+                    className={`filter-contents__option ${
+                      searchParams.get('sort') === option.value
                         ? 'filter-contents__option--active'
                         : ''
                       }`}
@@ -221,7 +228,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
               rightIcon={<AiOutlineClear />}
               onClick={() => setSearchParams({})}
             >
-              Clear
+              Bỏ chọn
             </Button>
           </div>
         </div>
