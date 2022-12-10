@@ -7,6 +7,8 @@ const orderRouter = express.Router();
 
 orderRouter.use(authController.protect);
 
+orderRouter.route('/order-stat').get(orderController.orderStart);
+
 orderRouter
   .route('/')
   .get(orderController.getAllOrder)
@@ -15,7 +17,10 @@ orderRouter
 orderRouter
   .route('/:id')
   .get(orderController.getOrder)
-  .patch(authController.restrictTo('admin'), orderController.updateOrder);
+  .patch(
+    authController.restrictTo('admin', 'shipper'),
+    orderController.updateOrder
+  );
 
 orderRouter.route('/:id/cancel').get(orderController.canceledOrder);
 
