@@ -14,13 +14,13 @@ import useWindowDimension from '../../../hooks/useWindowDimension';
 
 const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
 const options = [
-  { id: 1, name: 'Newest', value: '-createAt' },
-  { id: 2, name: 'Oldest', value: 'createAt' },
-  { id: 3, name: 'Best Sale', value: '-saleOff' },
-  { id: 4, name: 'Name: A-Z', value: 'name' },
-  { id: 5, name: 'Name: Z-A', value: '-name' },
-  { id: 6, name: 'Price: Low to Hight', value: 'price' },
-  { id: 7, name: 'Price: Hight to Low', value: '-price' },
+  { id: 1, name: 'Mới nhất', value: '-createdAt' },
+  { id: 2, name: 'Cũ nhất', value: 'createdAt' },
+  { id: 3, name: 'Khuyến mãi', value: '-saleOff' },
+  { id: 4, name: 'Tên: A-Z', value: '-name' },
+  { id: 5, name: 'Tên: Z-A', value: 'name' },
+  { id: 6, name: 'Giá tăng dần', value: 'price' },
+  { id: 7, name: 'Giá giảm dần', value: '-price' },
 ];
 
 type ProductsFilterProps = {
@@ -111,8 +111,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
           <div className="overlay" onClick={hideFilterToggle}></div>
         )}
         <div
-          className={`products__filter-toggle ${
-            isFilterToggle ? 'products__filter-toggle--active' : ''
+          className={`products__filter-toggle ${isFilterToggle ? 'products__filter-toggle--active' : ''
             }`}
         >
           <div className="filter-toggle__header">
@@ -134,16 +133,14 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
                 {expandContent.collection ? <BsChevronUp /> : <BsChevronDown />}
               </div>
               <div
-                className={`filter-contents ${
-                  expandContent.collection ? 'expand' : ''
+                className={`filter-contents ${expandContent.collection ? 'expand' : ''
                   }`}
               >
                 {!!categories.length &&
                   categories.map(category => (
                     <div
                       key={category._id}
-                      className={`filter-toggle__category ${
-                        searchParams.get('category')?.includes(category._id)
+                      className={`filter-toggle__category ${searchParams.get('category')?.includes(category._id)
                           ? 'filter-toggle__category--active'
                           : ''
                         }`}
@@ -168,15 +165,13 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
                 {expandContent.size ? <BsChevronUp /> : <BsChevronDown />}
               </div>
               <div
-                className={`filter-contents ${
-                  expandContent.size ? 'expand' : ''
+                className={`filter-contents ${expandContent.size ? 'expand' : ''
                   }`}
               >
                 {sizes.map((size, i) => (
                   <div
                     key={i}
-                    className={`filter-contents__size ${
-                      searchParams.getAll('size')?.includes(size)
+                    className={`filter-contents__size ${searchParams.getAll('size')?.includes(size)
                         ? 'filter-contents__size--active'
                         : ''
                       }`}
@@ -201,15 +196,13 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ changePage }) => {
                 {expandContent.options ? <BsChevronUp /> : <BsChevronDown />}
               </div>
               <div
-                className={`filter-contents ${
-                  expandContent.options ? 'expand' : ''
+                className={`filter-contents ${expandContent.options ? 'expand' : ''
                   }`}
               >
                 {options.map((option, i) => (
                   <div
                     key={option.id}
-                    className={`filter-contents__option ${
-                      searchParams.get('sort') === option.value
+                    className={`filter-contents__option ${searchParams.get('sort') === option.value
                         ? 'filter-contents__option--active'
                         : ''
                       }`}

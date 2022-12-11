@@ -40,7 +40,7 @@ const AdminOrdersModal = ({
     const dateTime = new Intl.DateTimeFormat('vn-VN', {
         dateStyle: 'short',
         timeStyle: 'short',
-    }).format(new Date(data.createAt));
+    }).format(new Date(data.createdAt));
 
     const [date, time] = dateTime.split(', ');
 
@@ -68,33 +68,33 @@ const AdminOrdersModal = ({
                 <span>{time}</span>
             </div>
             <div className="order-modal__content">
-            <span>Trạng thái</span>
+                <span>Trạng thái</span>
 
-<Select
-  options={status}
-  value={{
-    label: StatusOrder[
-      data.status as keyof typeof StatusOrder
-    ] as string,
-    value: data.status,
-  }}
-  onChange={e => {
-    if (!e?.value) return;
-    setOrderStatus(e?.value as keyof typeof StatusOrder);
-  }}
-/>
-
-{/* <Multiselect
+                <Select
                     options={status}
-                    selectedValues={[data.status]}
-                    isObject={false}
-                    singleSelect
-                    customCloseIcon={<></>}
-                    onSelect={e => {
-                        const [status] = e;
-                        setOrderStatus(status);
+                    value={{
+                        label: StatusOrder[
+                            data.status as keyof typeof StatusOrder
+                        ] as string,
+                        value: data.status,
                     }}
-                /> */}
+                    onChange={e => {
+                        if (!e?.value) return;
+                        setOrderStatus(e?.value as keyof typeof StatusOrder);
+                    }}
+                />
+
+                {/* <Multiselect
+          options={status}
+          selectedValues={[data.status]}
+          isObject={false}
+          singleSelect
+          customCloseIcon={<></>}
+          onSelect={e => {
+            const [status] = e;
+            setOrderStatus(status);
+          }}
+        /> */}
             </div>
             <div className="order-modal__content">
                 <span>

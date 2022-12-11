@@ -28,7 +28,7 @@ const Order = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const axiosPrivate = useAxiosPrivate();
-  
+
   const cartItems = useSelector(cartItemsSelector);
   const totalPrice = useSelector(cartTotalPriceSelector);
   const user = useSelector(userSelector);
@@ -60,7 +60,7 @@ const Order = () => {
       .catch(e => {
         console.log(e);
       });
-    }, []);
+  }, []);
 
   const validate = useMemo(() => {
     const { address, phone, provinces, districts, wards } = orderInfo;
@@ -98,7 +98,7 @@ const Order = () => {
       if (res.status === 201) {
         toast.success('Order successful!!');
         dispatch(removeAllCart());
-        navigate('/');
+        navigate('/me/my-order');
       }
     } catch (error: any) {
       const message = error.response.data.message;
@@ -154,8 +154,8 @@ const Order = () => {
               options={
                 orderInfo.provinces
                   ? (divisions.districts.filter(
-                      d => d.province_code === orderInfo.provinces.code
-                    ) as any)
+                    d => d.province_code === orderInfo.provinces.code
+                  ) as any)
                   : []
               }
               getOptionLabel={(p: District) => {
@@ -179,8 +179,8 @@ const Order = () => {
               options={
                 orderInfo.districts
                   ? (divisions.wards.filter(
-                      w => w.district_code === orderInfo.districts.code
-                    ) as any)
+                    w => w.district_code === orderInfo.districts.code
+                  ) as any)
                   : []
               }
               getOptionLabel={(p: Ward) => {

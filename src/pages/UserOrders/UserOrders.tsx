@@ -44,6 +44,12 @@ const UserOrders = () => {
       .then(res => {
         const orders: OrderModel[] | undefined = res.data.data?.data?.orders;
 
+        orders?.sort((a, b) => {
+          return (
+            (new Date(b.updatedAt) as any) - (new Date(a.updatedAt) as any)
+          );
+        });
+
         const userOr = orders?.reduce(
           (finalOrder, order) => {
             switch (order.status) {
@@ -110,16 +116,16 @@ const UserOrders = () => {
         })}
       </div>
       <div className="user-orders__list">
-      {!userOrders[status].length && (
+        {!userOrders[status].length && (
           <i style={{ textAlign: 'center', marginTop: '2rem' }}>
             Chưa có đơn hàng nào
           </i>
-      )}
-      {userOrders[status].map(order => {
+        )}
+        {userOrders[status].map(order => {
           const dateTime = new Intl.DateTimeFormat('vn-VN', {
             dateStyle: 'short',
             timeStyle: 'short',
-          }).format(new Date(order.createAt));
+          }).format(new Date(order.updatedAt));
 
           const [date, time] = dateTime.split(', ');
           return (
@@ -156,7 +162,7 @@ const UserOrders = () => {
                 </div>
               </div>
               <div className="user-orders__content">
-                <span>Tổng tiền </span>
+                <span>Tổng tiền</span>
                 <span>{currencyFormat(order.totalPrice)}</span>
               </div>
               <div className="user-orders__content">

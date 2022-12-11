@@ -79,7 +79,7 @@ const AdminOrders = () => {
             <h4>Sản phẩm</h4>
           </div>
           <div className="admin-order__title">
-            <h4>Trạng thá</h4>
+            <h4>Trạng thái</h4>
           </div>
           <div className="admin-order__title">
             <h4>Giá</h4>
@@ -91,7 +91,7 @@ const AdminOrders = () => {
             const dateTime = new Intl.DateTimeFormat('vn-VN', {
               dateStyle: 'short',
               timeStyle: 'short',
-            }).format(new Date(order.createAt));
+            }).format(new Date(order.createdAt));
             const [date, time] = dateTime.split(', ');
 
             return (
