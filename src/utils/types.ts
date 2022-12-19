@@ -38,7 +38,7 @@ type ProductItem = {
     product: ProductOrder;
 };
 
-type Customer = {
+export type Customer = {
     id: string;
     name: string;
 };
@@ -156,3 +156,16 @@ export type Address = {
     districts: District;
     wards: Ward;
 };
+
+export type OrderStat = {
+    rateFailed?: {
+      rate?: number;
+      num?: number;
+    };
+    rateSuccess: {
+      rate?: number;
+      num?: number;
+    };
+    totalOrder: number;
+    totalRevenue: number;
+  };
