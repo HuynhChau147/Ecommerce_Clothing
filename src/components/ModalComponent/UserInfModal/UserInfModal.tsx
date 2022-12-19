@@ -138,7 +138,7 @@ const UserInfModal = ({ data, onClose }: UserInfModalProps) => {
 
       <form onSubmit={formSubmitHandler}>
         <div className="user-inf-modal__inputs">
-        <div>
+          <div>
             {inputs.map(input => {
               const { id, ...inputProps } = input;
               return (
@@ -183,8 +183,8 @@ const UserInfModal = ({ data, onClose }: UserInfModalProps) => {
               options={
                 userAddress.provinces
                   ? (divisions.districts.filter(
-                      d => d.province_code === userAddress.provinces.code
-                    ) as any)
+                    d => d.province_code === userAddress.provinces.code
+                  ) as any)
                   : []
               }
               getOptionLabel={(p: District) => {
@@ -208,8 +208,8 @@ const UserInfModal = ({ data, onClose }: UserInfModalProps) => {
               options={
                 userAddress.districts
                   ? (divisions.wards.filter(
-                      w => w.district_code === userAddress.districts.code
-                    ) as any)
+                    w => w.district_code === userAddress.districts.code
+                  ) as any)
                   : []
               }
               getOptionLabel={(p: Ward) => {
@@ -233,7 +233,7 @@ const UserInfModal = ({ data, onClose }: UserInfModalProps) => {
                 setUserAddress(prev => ({ ...prev, address: e.target.value }));
               }}
               type="text"
-              label="Địa chỉ"
+              label="Tên đường, số nhà"
               style={{ margin: 0 }}
             />
           </div>
